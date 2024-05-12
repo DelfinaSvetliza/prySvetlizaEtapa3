@@ -15,6 +15,9 @@ namespace prySvetlizaEtapa3
         private PictureBox imgAuto;
         private PictureBox imgAvion;
         private PictureBox imgBarco;
+        
+        
+        
         public Form1()
         {
             InitializeComponent();
@@ -49,38 +52,58 @@ namespace prySvetlizaEtapa3
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            string nombre = "";
+            string tipo = "";
+            Image imagen = null;
             switch (e.KeyCode)
             {
+                
+
                 case Keys.C: // Tecla "C" para el auto
-                    MostrarImagen(imgAuto);
+                    imagen = Properties.Resources.auto;
+                    nombre = "auto";
+                    tipo = "terrestre";
                     break;
                 case Keys.B: // Tecla "B" para el barco
-                    MostrarImagen(imgBarco);
+                    imagen = Properties.Resources.barco;
+                    nombre = "barco";
+                    tipo = "maritimo";
                     break;
                 case Keys.P: // Tecla "P" para el avión
-                    MostrarImagen(imgAvion);
+                    imagen = Properties.Resources.avion;
+                    nombre = "avion";
+                    tipo = "aereo";
                     break;
                 default:
                     // Si se presiona una tecla diferente, no se hace nada
                     break;
-
+                
             }
+            MostrarImagen(nombre, tipo, imagen);
         }
 
         // Método para mostrar la imagen en el formulario
-        private void MostrarImagen(PictureBox pictureBox)
+        private void MostrarImagen(string nombre, string tipo, Image imagen)
         {
+            // Mostrar los detalles del vehículo en un MessageBox
+            MessageBox.Show($"Vehículo: {nombre}\nTipo: {tipo}");
+            // Crear el PictureBox y configurar sus propiedades
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Image = imagen;
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.Visible = true;
+            pictureBox.Dock = DockStyle.Fill;
             // Agregar el PictureBox al formulario si aún no está agregado
-            if (!this.Controls.Contains(pictureBox))
+            if (!Controls.Contains(pictureBox))
             {
-                this.Controls.Add(pictureBox);
-                pictureBox.Dock = DockStyle.Fill;
+                Controls.Add(pictureBox);//agrega pctbox para hacerlo visibe
+                pictureBox.Dock = DockStyle.Fill;//ocupe todo el formulario
             }
-
             // Mostrar el PictureBox y traerlo al frente
             pictureBox.Visible = true;
             pictureBox.BringToFront();
         }
+       
     }
 }
 
